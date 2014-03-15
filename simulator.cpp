@@ -1,27 +1,59 @@
 //Written by Isaac Davis
 #include <iostream>
 #include <vector>
+#include <string>
+#include <fstream>
+#include <stdlib.h>
+#include <sstream>
 
 using namespace std;
 
-typedef struct{
-	int runCycles;
-	int waitCycles;
-	int ioCycles;
+class Program{	
+	int runCycles, waitCycles, ioCycles;
 	vector<int> lifeCycle;
-} Program;
+    public:
+	Program(vector<int>);
+	void incRC();
+	void incWC();
+	void incIOC();	
+};
 
-void initProgram(Program* prog){
-	prog -> runCycles = 0;
-	prog -> waitCycles = 0;
-	prog -> ioCycles = 0;
-	prog -> lifeCycle = new Vector<int>;
+Program::Program(vector<int> aVec){
+	runCycles = 0;
+	waitCycles = 0;
+	ioCycles = 0;
 }
 
-int main(int argc, char* argv[]){
-	Program* firstProg = new Program;
-	Program* secondProg = new Program;
-	initProgram(firstProg);
+vector<int>* breakLine(string);
 
+int main(int argc, char* argv[]){
+	fstream simFile;
+	simFile.open("progData.dat");
+	string line;
+
+	//read the file and make program objects out of it	
+	while(getline(simFile, line)){
+		vector<int>* clockCounts = breakLine(line);
+	}
 	return 0;
+}
+
+
+vector<int>* breakLine(string line){
+	char aChar = ' ';
+	istringstream linestream(line);
+	vector<int>* clockVec = new vector<int>;
+	string intBuff = "";
+	while(linestream >> noskipws >> aChar){
+		if(aChar != ' '){
+			intBuff += (aChar);
+		}
+		else{
+			int aNum = atoi(intBuff.c_str());
+			clockVec->push_back(aNum);
+			intBuff = "";
+		}
+	}
+	clockVec->push_back(atoi(intBuff.c_str()));
+	return clockVec;
 }
