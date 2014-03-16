@@ -5,44 +5,75 @@
 #include <fstream>
 #include <stdlib.h>
 #include <sstream>
+#include <queue>
 
 using namespace std;
 
 class Program{	
 	int runCycles, waitCycles, ioCycles;
-	vector<int> lifeCycle;
+	queue<int>* lifeCycle;
     public:
-	Program(vector<int>);
-	void incRC();
-	void incWC();
-	void incIOC();	
+	Program(queue<int>*);
+	bool incRC();
+	bool incWC();
+	bool incIOC();	
 };
 
-Program::Program(vector<int> aVec){
+Program::Program(queue<int>* aQue){
 	runCycles = 0;
 	waitCycles = 0;
 	ioCycles = 0;
+	lifeCycle = aQue;
 }
 
-vector<int>* breakLine(string);
+bool Program::incRC(){
+	
+}
+
+queue<int>* breakLine(string);
+vector<Program*>* runSimulation(queue<Program*>*, int);
+
 
 int main(int argc, char* argv[]){
+	//some config stuff
+	int timeQuantum = 10;	
+	queue<Program*>* progQueue = new queue<Program*>;
+	
+
 	fstream simFile;
 	simFile.open("progData.dat");
 	string line;
 
 	//read the file and make program objects out of it	
 	while(getline(simFile, line)){
-		vector<int>* clockCounts = breakLine(line);
+		queue<int>* clockCounts = breakLine(line);
+		progQueue->push(new Program(clockCounts));
 	}
+	vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum);	
+	
 	return 0;
 }
 
+vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant){
+	vector<Program*>* outputVec = new vector<Program*>;
+	while(!runQueue->empty()){
+		int currClock = 0;
+		Program* runningProg = runQueue->front();
+		runQueue->pop();
+		while(currClock < quant && runningProg->incRC()){
+			//inc waitCount for all in queue; 
+			currClock++;
+			cout << currClock << endl;
+		}
+	}
+	return outputVec;
+}
 
-vector<int>* breakLine(string line){
+
+queue<int>* breakLine(string line){
 	char aChar = ' ';
 	istringstream linestream(line);
-	vector<int>* clockVec = new vector<int>;
+	queue<int>* clockVec = new queue<int>;
 	string intBuff = "";
 	while(linestream >> noskipws >> aChar){
 		if(aChar != ' '){
@@ -50,10 +81,10 @@ vector<int>* breakLine(string line){
 		}
 		else{
 			int aNum = atoi(intBuff.c_str());
-			clockVec->push_back(aNum);
+			clockVec->push(aNum);
 			intBuff = "";
 		}
 	}
-	clockVec->push_back(atoi(intBuff.c_str()));
+	clockVec->push(atoi(intBuff.c_str()));
 	return clockVec;
 }
