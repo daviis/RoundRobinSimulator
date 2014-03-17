@@ -15,12 +15,14 @@ class Program{
     public:
 	Program(queue<int>*, int);
 	bool incRC();
-	bool incWC();
+	void incWC();
 	bool incIOC();
 	int progId;
-	bool notExited();
+	bool exited();
 	int lifeLength();
-	bool needsIO(int);	
+	bool needsIO(int);
+	int wc();	
+	queue<int>* getLC();
 };
 
 Program::Program(queue<int>* aQue, int id){
@@ -29,6 +31,18 @@ Program::Program(queue<int>* aQue, int id){
 	ioCycles = 0;
 	lifeCycle = aQue;
 	progId = id;
+}
+
+int Program::wc(){
+	return this->waitCycles;
+}
+
+void Program::incWC(){
+	this->waitCycles++;
+}
+
+queue<int>* Program::getLC(){
+	return this->lifeCycle;
 }
 
 int Program::lifeLength(){
@@ -65,12 +79,12 @@ bool Program::incIOC(){
 	}	
 }
 
-bool Program::notExited(){
-	return (!this->lifeCycle->empty());
+bool Program::exited(){
+	return (this->lifeCycle->empty() || (this->lifeCycle->size() == 1 && this->lifeCycle->front() == 0));
 }
 
 queue<int>* breakLine(string);
-vector<Program*>* runSimulation(queue<Program*>*, int);
+vector<Program*>* runSimulation(queue<Program*>*, int, int*);
 void printStates(queue<Program*>, queue<Program*>);
 void checkIOQueue(queue<Program*>*, queue<Program*>*);
 void incWaitCount(queue<Program*>*);
@@ -78,7 +92,8 @@ void incWaitCount(queue<Program*>*);
 
 int main(int argc, char* argv[]){
 	//some config stuff
-	int timeQuantum = 10;	
+	int timeQuantum = 10;
+	int idleTime = 0;	
 	queue<Program*>* progQueue = new queue<Program*>;
 	
 	//open the file
@@ -93,16 +108,32 @@ int main(int argc, char* argv[]){
 		progQueue->push(new Program(clockCounts, idCount));
 		idCount++;
 	}
-	vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum);	
+	cout << idleTime << " idle cycles in system" << endl;
+	vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum, &idleTime);	
 	
+	//final output
+	for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
+		Program* p = *it;	
+		cout << p->progId << " wait " << p->wc() << endl;
+	}	
+	cout << idleTime << " idle cycles in system" << endl;
 	return 0;
 }
 
-vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant){
+vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle){
 	vector<Program*>* outputVec = new vector<Program*>;
 	queue<Program*>* ioQue = new queue<Program*>;
-	while(!runQueue->empty()){
+	while(!runQueue->empty() || !ioQue->empty()){
 		int currClock = 0;
+		if(runQueue->empty()){
+			while(runQueue->empty()){
+				*idle += 1;	
+				queue<Program*> printQueue (*runQueue);
+				queue<Program*> ioQueue (*ioQue);
+				printStates(printQueue, ioQueue);
+				checkIOQueue(runQueue, ioQue);
+			}
+		}
 		Program* runningProg = runQueue->front();
 		int lifeLength = runningProg->lifeLength();
 		cout << runningProg->progId << " enters running state" << endl;
@@ -116,7 +147,7 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant){
 			checkIOQueue(runQueue, ioQue);
 			currClock++;
 		}
-		if(runningProg->notExited()){
+		if(!runningProg->exited()){
 			if(runningProg->needsIO(lifeLength)){
 				ioQue->push(runningProg);
 			}
@@ -152,7 +183,18 @@ void checkIOQueue(queue<Program*>* runQ, queue<Program*>* ioQ){
 }
 
 void incWaitCount(queue<Program*>* runQ){
-//	cout << "need to impl incRunQueue" << endl;
+	queue<Program*>* tempq = new queue<Program*>;
+	while(!runQ->empty()){
+		Program* p = runQ->front();
+		runQ->pop();
+		tempq->push(p);
+		p->incWC();
+	}
+	while(!tempq->empty()){
+		Program* p = tempq->front();
+		tempq->pop();
+		runQ->push(p);
+	}
 }
 
 void printStates(queue<Program*> printQ, queue<Program*> ioQ){
