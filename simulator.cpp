@@ -15,13 +15,16 @@ class Program{
     public:
 	Program(queue<int>*, int);
 	bool incRC();
+	void incRC_notRunning();
+	void decRC();	
 	void incWC();
 	bool incIOC();
 	int progId;
 	bool exited();
 	int lifeLength();
 	bool needsIO(int);
-	int wc();	
+	int wc();
+	int rc();	
 	queue<int>* getLC();
 };
 
@@ -37,10 +40,17 @@ int Program::wc(){
 	return this->waitCycles;
 }
 
+int Program::rc(){
+	return this->runCycles;
+}
+
 void Program::incWC(){
 	this->waitCycles++;
 }
 
+void Program::decRC(){
+	this->runCycles--;
+}
 queue<int>* Program::getLC(){
 	return this->lifeCycle;
 }
@@ -53,10 +63,14 @@ bool Program::needsIO(int previous){
 	return (previous != this->lifeLength());
 }
 
+void Program::incRC_notRunning(){
+	this->runCycles++;
+}
+
 bool Program::incRC(){
 	int val = this->lifeCycle->front();
-	this->runCycles++;
 	if(val > 0){
+		this->runCycles++;
 		this->lifeCycle->front()--;
 		return true;
 	}
@@ -108,7 +122,6 @@ int main(int argc, char* argv[]){
 		progQueue->push(new Program(clockCounts, idCount));
 		idCount++;
 	}
-	cout << idleTime << " idle cycles in system" << endl;
 	vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum, &idleTime);	
 	
 	//final output
@@ -140,11 +153,11 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle)
 		runQueue->pop();
 		while(currClock < quant && runningProg->incRC()){
 			incWaitCount(runQueue);
-			cout << runningProg->progId << " is running" << endl;
+			cout << runningProg->progId << " is running"  << endl;
 			queue<Program*> printQueue (*runQueue);
 			queue<Program*> ioQueue (*ioQue);
-			printStates(printQueue, ioQueue);
 			checkIOQueue(runQueue, ioQue);
+			printStates(printQueue, ioQueue);
 			currClock++;
 		}
 		if(!runningProg->exited()){
@@ -156,7 +169,7 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle)
 			}
 		}
 		else{
-			cout << runningProg->progId << " is done" << endl;
+			cout << runningProg->progId << " is done after " << runningProg->rc() << " cycles"<< endl;
 			outputVec->push_back(runningProg);
 		}
 	}
@@ -189,6 +202,7 @@ void incWaitCount(queue<Program*>* runQ){
 		runQ->pop();
 		tempq->push(p);
 		p->incWC();
+		p->incRC_notRunning();
 	}
 	while(!tempq->empty()){
 		Program* p = tempq->front();
