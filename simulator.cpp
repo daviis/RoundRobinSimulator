@@ -106,34 +106,40 @@ void incWaitCount(queue<Program*>*);
 
 int main(int argc, char* argv[]){
 	//some config stuff
-	int timeQuantum = 10;
-	int idleTime = 0;	
-	queue<Program*>* progQueue = new queue<Program*>;
-	
-	//open the file
-	fstream simFile;
-	simFile.open("progData.dat");
-	string line;
 
-	//read the file and make program objects out of it	
-	int idCount = 1;
-	while(getline(simFile, line)){
-		queue<int>* clockCounts = breakLine(line);
-		progQueue->push(new Program(clockCounts, idCount));
-		idCount++;
-	}
-	vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum, &idleTime);	
+	int timeQuantum = 1;
+	while(timeQuantum < 31){
+		cout << "\tTimeQuantum : " << timeQuantum << endl;
+		int idleTime = 0;	
+		queue<Program*>* progQueue = new queue<Program*>;
 	
-	//final output
-	for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
-		Program* p = *it;	
-		cout << p->progId << " wait " << p->wc() << endl;
-	}	
-	cout << idleTime << " idle cycles in system" << endl;
+		//open the file
+		fstream simFile;
+		simFile.open("progData.dat");
+		string line;
+
+		//read the file and make program objects out of it	
+		int idCount = 1;
+		while(getline(simFile, line)){
+			queue<int>* clockCounts = breakLine(line);
+			progQueue->push(new Program(clockCounts, idCount));
+			idCount++;
+		}
+		vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum, &idleTime);	
+		
+		//final output
+		for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
+			Program* p = *it;	
+			cout << p->progId << " = wait : " << p->wc() << " turnaround time : " << p->rc() << endl;
+		}	
+		cout << idleTime << " idle cycles in system" << endl;
+		timeQuantum++;
+	}
 	return 0;
 }
 
 vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle){
+	bool doPrint = false;
 	vector<Program*>* outputVec = new vector<Program*>;
 	queue<Program*>* ioQue = new queue<Program*>;
 	while(!runQueue->empty() || !ioQue->empty()){
@@ -143,21 +149,27 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle)
 				*idle += 1;	
 				queue<Program*> printQueue (*runQueue);
 				queue<Program*> ioQueue (*ioQue);
-				printStates(printQueue, ioQueue);
 				checkIOQueue(runQueue, ioQue);
+				if(doPrint){
+					printStates(printQueue, ioQueue);
+				}
 			}
 		}
 		Program* runningProg = runQueue->front();
 		int lifeLength = runningProg->lifeLength();
-		cout << runningProg->progId << " enters running state" << endl;
+		if(doPrint){
+			cout << runningProg->progId << " enters running state" << endl;
+		}
 		runQueue->pop();
 		while(currClock < quant && runningProg->incRC()){
 			incWaitCount(runQueue);
-			cout << runningProg->progId << " is running"  << endl;
 			queue<Program*> printQueue (*runQueue);
 			queue<Program*> ioQueue (*ioQue);
 			checkIOQueue(runQueue, ioQue);
-			printStates(printQueue, ioQueue);
+			if(doPrint){
+				cout << runningProg->progId << " is running"  << endl;
+				printStates(printQueue, ioQueue);
+			}
 			currClock++;
 		}
 		if(!runningProg->exited()){
@@ -169,7 +181,9 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle)
 			}
 		}
 		else{
-			cout << runningProg->progId << " is done after " << runningProg->rc() << " cycles"<< endl;
+			if(doPrint){
+				cout << runningProg->progId << " is done after " << runningProg->rc() << " cycles"<< endl;
+			}
 			outputVec->push_back(runningProg);
 		}
 	}
