@@ -1,0 +1,205 @@
+1 enters running state
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+2 enters running state
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+2 is running
+		3 is waiting
+		1 is waiting
+3 enters running state
+3 is running
+		1 is waiting
+	2 is doing io
+3 is running
+		1 is waiting
+	2 is doing io
+3 is running
+		1 is waiting
+	2 is doing io
+3 is running
+		1 is waiting
+	2 is doing io
+3 is running
+		1 is waiting
+		2 is waiting
+3 is running
+		1 is waiting
+		2 is waiting
+3 is running
+		1 is waiting
+		2 is waiting
+3 is running
+		1 is waiting
+		2 is waiting
+3 is running
+		1 is waiting
+		2 is waiting
+3 is running
+		1 is waiting
+		2 is waiting
+1 enters running state
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+2 enters running state
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+	1 is doing io
+2 is running
+		3 is waiting
+	1 is doing io
+3 enters running state
+3 is running
+	1 is doing io
+	2 is doing io
+3 is running
+		1 is waiting
+	2 is doing io
+1 enters running state
+1 is running
+	2 is doing io
+	3 is doing io
+1 is running
+		2 is waiting
+	3 is doing io
+1 is running
+		2 is waiting
+	3 is doing io
+1 is running
+		2 is waiting
+	3 is doing io
+1 is running
+		2 is waiting
+	3 is doing io
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is running
+		2 is waiting
+		3 is waiting
+1 is done after 52 cycles
+2 enters running state
+2 is running
+		3 is waiting
+2 is running
+		3 is waiting
+2 is done after 54 cycles
+3 enters running state
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 enters running state
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+3 is running
+	3 is doing io
+	3 is doing io
+	3 is doing io
+	3 is doing io
+	3 is doing io
+	3 is doing io
+	3 is doing io
+3 enters running state
+3 is running
+3 is running
+3 is running
+3 is running
+3 is done after 81 cycles
+1 wait 18
+2 wait 31
+3 wait 37
+7 idle cycles in system

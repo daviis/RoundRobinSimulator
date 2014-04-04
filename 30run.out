@@ -1,0 +1,150 @@
+	TimeQuantum : 1
+2 = wait : 26 turnaround time : 49
+1 = wait : 35 turnaround time : 69
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 2
+2 = wait : 23 turnaround time : 46
+1 = wait : 32 turnaround time : 66
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 3
+2 = wait : 24 turnaround time : 47
+1 = wait : 36 turnaround time : 70
+3 = wait : 36 turnaround time : 80
+6 idle cycles in system
+	TimeQuantum : 4
+2 = wait : 28 turnaround time : 51
+1 = wait : 35 turnaround time : 69
+3 = wait : 40 turnaround time : 84
+10 idle cycles in system
+	TimeQuantum : 5
+2 = wait : 27 turnaround time : 50
+1 = wait : 31 turnaround time : 65
+3 = wait : 38 turnaround time : 82
+8 idle cycles in system
+	TimeQuantum : 6
+2 = wait : 21 turnaround time : 44
+1 = wait : 32 turnaround time : 66
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 7
+2 = wait : 28 turnaround time : 51
+1 = wait : 36 turnaround time : 70
+3 = wait : 34 turnaround time : 78
+4 idle cycles in system
+	TimeQuantum : 8
+2 = wait : 37 turnaround time : 60
+1 = wait : 36 turnaround time : 70
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 9
+2 = wait : 40 turnaround time : 63
+1 = wait : 37 turnaround time : 71
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 10
+1 = wait : 18 turnaround time : 52
+2 = wait : 31 turnaround time : 54
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 11
+1 = wait : 18 turnaround time : 52
+2 = wait : 31 turnaround time : 54
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 12
+1 = wait : 19 turnaround time : 53
+2 = wait : 32 turnaround time : 55
+3 = wait : 38 turnaround time : 82
+8 idle cycles in system
+	TimeQuantum : 13
+1 = wait : 31 turnaround time : 65
+2 = wait : 44 turnaround time : 67
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 14
+1 = wait : 32 turnaround time : 66
+2 = wait : 45 turnaround time : 68
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 15
+1 = wait : 33 turnaround time : 67
+2 = wait : 46 turnaround time : 69
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 16
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 37 turnaround time : 81
+7 idle cycles in system
+	TimeQuantum : 17
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 18
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 19
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 20
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 21
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 22
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 23
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 24
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 25
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 26
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 27
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 28
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 29
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
+	TimeQuantum : 30
+1 = wait : 34 turnaround time : 68
+2 = wait : 47 turnaround time : 70
+3 = wait : 30 turnaround time : 74
+0 idle cycles in system
