@@ -21,6 +21,7 @@ class Program{
         bool needsIO(int);
         int wc();
         int rc();       
+	int ioC();
         queue<int>* getLC();
 };
 

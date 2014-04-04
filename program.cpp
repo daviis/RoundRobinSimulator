@@ -19,6 +19,10 @@ int Program::rc(){
         return this->runCycles;
 }
 
+int Program::ioC(){
+	return this->ioCycles;
+}
+
 void Program::incWC(){
         this->waitCycles++;
 }
@@ -58,6 +62,7 @@ bool Program::incRC(){
 bool Program::incIOC(){
         int val = this->lifeCycle->front();
         this->runCycles++;
+	this->ioCycles++;
         if(val > 1){
                 this->lifeCycle->front()--;
                 return true;

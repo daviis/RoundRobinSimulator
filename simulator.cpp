@@ -82,11 +82,9 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle,
 		}
 		runQueue->pop();
 		while(currClock < quant && runningProg->incRC()){
-			cout << "in run loop / before io" << endl;
 			incWaitCount(runQueue);
 			queue<Program*> printQueue (*runQueue);
 			queue<Program*> ioQueue (*ioQue);
-			cout << "right b4 io check" << endl;
 			checkIOQueue(runQueue, ioQue, ioDev);
 			if(doPrint){
 				cout << runningProg->progId << " is running"  << endl;
@@ -115,7 +113,9 @@ vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle,
 void checkIOQueue(queue<Program*>* runQ, queue<Program*>* ioQ, int numIoDev){
 	queue<Program*>* tempQ = new queue<Program*>;
 	//only use the right number of io devices
-	for(int i = 0; i < numIoDev; i++){
+	//for(int i = 0; i < numIoDev; i++){
+	int i = 0;
+	while(!ioQ->empty() && i < numIoDev){
 		Program* p = ioQ->front();
 		ioQ->pop();
 		if(p->incIOC()){
@@ -123,7 +123,8 @@ void checkIOQueue(queue<Program*>* runQ, queue<Program*>* ioQ, int numIoDev){
 		}
 		else{
 			runQ->push(p);
-		}	
+		}
+		i++;	
 	}
 	while(!ioQ->empty()){
 		Program* p = ioQ->front();
@@ -175,7 +176,7 @@ void printStates(queue<Program*> printQ, queue<Program*> ioQ){
 	while(!ioQ.empty()){
 		Program* p = ioQ.front();
 		ioQ.pop();
-		cout << '\t' << p->progId << " is doing io" << endl;
+		cout << '\t' << p->progId << " is doing io : ioCount " << p->ioC() << endl;
 	}
 }
 
