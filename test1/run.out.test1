@@ -1,0 +1,36 @@
+	IoDevices: 1
+54 : average wait
+123 : average turnAround
+328 idle cycles in system
+	IoDevices: 2
+67 : average wait
+135 : average turnAround
+117 idle cycles in system
+	IoDevices: 3
+86 : average wait
+154 : average turnAround
+68 idle cycles in system
+	IoDevices: 4
+93 : average wait
+162 : average turnAround
+70 idle cycles in system
+	IoDevices: 5
+94 : average wait
+163 : average turnAround
+70 idle cycles in system
+	IoDevices: 6
+94 : average wait
+163 : average turnAround
+70 idle cycles in system
+	IoDevices: 7
+94 : average wait
+163 : average turnAround
+70 idle cycles in system
+	IoDevices: 8
+94 : average wait
+163 : average turnAround
+70 idle cycles in system
+	IoDevices: 9
+94 : average wait
+163 : average turnAround
+70 idle cycles in system

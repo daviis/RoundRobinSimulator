@@ -20,7 +20,7 @@ void incWaitCount(queue<Program*>*);
 int main(int argc, char* argv[]){
 	//some config stuff
 
-	int timeQuantum = 10;
+	int timeQuantum = 3;
 	int numIoDevices = 1;
 	int maxNumIoDevices = 10;
 	while(numIoDevices < maxNumIoDevices){
@@ -42,15 +42,31 @@ int main(int argc, char* argv[]){
 			progQueue->push(new Program(clockCounts, idCount));
 			idCount++;
 		}
-		//hacky way to set the number of programs correctly
+		//hacky way to set the number of times through the while loop correctly
 		maxNumIoDevices = idCount;
 		vector<Program*>* finalCounts = runSimulation(progQueue, timeQuantum, &idleTime, numIoDevices);	
 		
 		//final output
-		for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
-			Program* p = *it;	
-			cout << p->progId << " = wait : " << p->wc() << " turnaround time : " << p->rc() << endl;
-		}	
+		bool indv = false;
+		if(indv){
+			for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
+				Program* p = *it;	
+				cout << p->progId << " = wait : " << p->wc() << " turnaround time : " << p->rc() << endl;
+			}
+		}
+		else{
+			long totalWait = 0;
+			long totalTurn = 0;
+			for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
+				Program* p = *it;
+				totalWait += p->wc();
+				totalTurn += p->rc();
+			}
+			cout << totalWait / idCount <<  " : average wait" << endl;
+			cout <<totalTurn / idCount << " : average turnAround" << endl;
+			
+		}
+	
 		cout << idleTime << " idle cycles in system" << endl;
 		//timeQuantum++;
 		numIoDevices++;
@@ -59,7 +75,7 @@ int main(int argc, char* argv[]){
 }
 
 vector<Program*>* runSimulation(queue<Program*>* runQueue, int quant, int* idle, int ioDev){
-	bool doPrint = true;
+	bool doPrint = false;
 	vector<Program*>* outputVec = new vector<Program*>;
 	queue<Program*>* ioQue = new queue<Program*>;
 	while(!runQueue->empty() || !ioQue->empty()){
@@ -129,6 +145,7 @@ void checkIOQueue(queue<Program*>* runQ, queue<Program*>* ioQ, int numIoDev){
 	while(!ioQ->empty()){
 		Program* p = ioQ->front();
 		ioQ->pop();
+		//p->incWC();
 		tempQ->push(p);
 	}
 /*
