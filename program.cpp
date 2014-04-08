@@ -7,8 +7,17 @@ Program::Program(queue<int>* aQue, int id){
         runCycles = 0;
         waitCycles = 0;
         ioCycles = 0;
+        ioWaitCycles = 0;
         lifeCycle = aQue;
         progId = id;
+}
+
+int Program::ioWC(){
+	return this->ioWaitCycles;
+}
+
+void Program::incIOWC(){
+	this->ioWaitCycles++;
 }
 
 int Program::wc(){

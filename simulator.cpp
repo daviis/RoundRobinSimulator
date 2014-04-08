@@ -56,15 +56,17 @@ int main(int argc, char* argv[]){
 		}
 		else{
 			long totalWait = 0;
+			long totalIOWait = 0;
 			long totalTurn = 0;
 			for(vector<Program*>::iterator it = finalCounts->begin(); it != finalCounts->end(); ++it){	
 				Program* p = *it;
 				totalWait += p->wc();
+				totalIOWait += p->ioWC();
 				totalTurn += p->rc();
 			}
 			cout << totalWait / idCount <<  " : average wait" << endl;
 			cout <<totalTurn / idCount << " : average turnAround" << endl;
-			
+			cout << totalIOWait /idCount << " : average ioWait" << endl;	
 		}
 	
 		cout << idleTime << " idle cycles in system" << endl;
@@ -145,7 +147,7 @@ void checkIOQueue(queue<Program*>* runQ, queue<Program*>* ioQ, int numIoDev){
 	while(!ioQ->empty()){
 		Program* p = ioQ->front();
 		ioQ->pop();
-		//p->incWC();
+		p->incIOWC();
 		tempQ->push(p);
 	}
 /*
